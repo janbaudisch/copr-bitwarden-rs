@@ -1,0 +1,21 @@
+[Unit]
+Description=Unofficial Bitwarden compatible server written in Rust
+Documentation=https://github.com/dani-garcia/bitwarden_rs
+After=network.target
+
+[Service]
+User=bitwarden-rs
+Group=bitwarden-rs
+EnvironmentFile=/etc/bitwarden-rs.env
+ExecStart=/usr/libexec/bitwarden-rs/bitwarden-rs
+PrivateTmp=true
+PrivateDevices=true
+ProtectHome=true
+ProtectSystem=strict
+WorkingDirectory=/usr/libexec/bitwarden-rs
+ReadWriteDirectories=/usr/libexec/bitwarden-rs
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+
+[Install]
+WantedBy=multi-user.target
+
