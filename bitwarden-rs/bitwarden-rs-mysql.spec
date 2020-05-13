@@ -34,7 +34,7 @@ cargo build --features mysql --release
 %install
 install -Dpm 755 target/release/bitwarden_rs %{buildroot}%{_bindir}/bitwarden-rs
 install -Dpm 644 %{SOURCE1} %{buildroot}%{_unitdir}/bitwarden-rs.service
-install -Dpm 644 bitwarden-rs.env %{buildroot}%{_sysconfdir}/bitwarden-rs/bitwarden-rs.env
+install -Dpm 644 .env.template %{buildroot}%{_sysconfdir}/bitwarden-rs/bitwarden-rs.env
 
 %files
 %license LICENSE.txt
