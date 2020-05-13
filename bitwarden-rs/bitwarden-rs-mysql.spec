@@ -2,7 +2,7 @@
 
 Name: bitwarden-rs-mysql
 Version: 1.14.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Unofficial Bitwarden compatible server written in Rust (MySQL backend)
 License: GPL-3.0-only
 URL: https://github.com/dani-garcia/bitwarden_rs
@@ -11,6 +11,7 @@ Conflicts: bitwarden-rs-postgresql
 Conflicts: bitwarden-rs-sqlite
 Source0: https://github.com/dani-garcia/bitwarden_rs/archive/%{version}.tar.gz
 Source1: bitwarden-rs.service
+Patch0: config.patch
 BuildRequires: pkgconfig(libmariadb)
 BuildRequires: pkgconfig(openssl)
 BuildRequires: systemd
@@ -23,27 +24,28 @@ This version uses MySQL as its backend.
 
 %prep
 %setup -qn bitwarden_rs-%{version}
-curl -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain nightly
+%patch0 -p1
+curl -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain $(cat rust-toolchain)
 
 %build
 source $HOME/.cargo/env
 cargo build --features mysql --release
 
 %install
-install -Dpm 755 target/release/bitwarden_rs %{buildroot}/usr/libexec/bitwarden-rs/bitwarden-rs
+install -Dpm 755 target/release/bitwarden_rs %{buildroot}%{_bindir}/bitwarden-rs
 install -Dpm 644 %{SOURCE1} %{buildroot}%{_unitdir}/bitwarden-rs.service
-install -Dpm 644 .env.template %{buildroot}/etc/bitwarden-rs.env
-install -d %{buildroot}/usr/libexec/bitwarden-rs/data
+install -Dpm 644 bitwarden-rs.env %{buildroot}%{_sysconfdir}/bitwarden-rs/bitwarden-rs.env
 
 %files
 %license LICENSE.txt
-/usr/libexec/bitwarden-rs/bitwarden-rs
+%{_bindir}/bitwarden-rs
 %{_unitdir}/bitwarden-rs.service
-/etc/bitwarden-rs.env
+%config(noreplace) %{_sysconfdir}/bitwarden-rs/bitwarden-rs.env
 
-%pre
-groupadd --system bitwarden-rs || true
-useradd -Mrg bitwarden-rs -d /usr/libexec/bitwarden-rs bitwarden-rs || true
+%pre	
+getent group bitwarden-rs > /dev/null || groupadd --system bitwarden-rs
+getent passwd bitwarden-rs > /dev/null || useradd -Mrg bitwarden-rs -d /usr/share/bitwarden-rs bitwarden-rs
 
 %post
-chown -R bitwarden-rs /usr/libexec/bitwarden-rs/data
+mkdir -p /usr/share/bitwarden-rs/data
+chown -R bitwarden-rs /usr/share/bitwarden-rs/data

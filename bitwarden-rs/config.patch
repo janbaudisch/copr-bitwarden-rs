@@ -1,0 +1,22 @@
+--- a/.env.template	2020-05-13 17:14:44.616556862 +0200
++++ b/.env.template	2020-05-13 17:14:34.390713829 +0200
+@@ -2,7 +2,7 @@
+ ## Uncomment any of the following lines to change the defaults
+ 
+ ## Main data folder
+-# DATA_FOLDER=data
++DATA_FOLDER=/usr/share/bitwarden-rs/data
+ 
+ ## Database URL
+ ## When using SQLite, this is the path to the DB file, default to %DATA_FOLDER%/db.sqlite3
+@@ -31,8 +31,8 @@
+ # ICON_CACHE_NEGTTL=259200
+ 
+ ## Web vault settings
+-# WEB_VAULT_FOLDER=web-vault/
+-# WEB_VAULT_ENABLED=true
++WEB_VAULT_FOLDER=/usr/share/bitwarden-rs/web-vault
++WEB_VAULT_ENABLED=true
+ 
+ ## Enables websocket notifications
+ # WEBSOCKET_ENABLED=false
