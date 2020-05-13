@@ -2,7 +2,7 @@
 
 Name: bitwarden-rs-mysql
 Version: 1.14.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Unofficial Bitwarden compatible server written in Rust (MySQL backend)
 License: GPL-3.0-only
 URL: https://github.com/dani-garcia/bitwarden_rs
@@ -33,6 +33,7 @@ cargo build --features mysql --release
 install -Dpm 755 target/release/bitwarden_rs %{buildroot}/usr/libexec/bitwarden-rs/bitwarden-rs
 install -Dpm 644 %{SOURCE1} %{buildroot}%{_unitdir}/bitwarden-rs.service
 install -Dpm 644 .env.template %{buildroot}/etc/bitwarden-rs.env
+install -d %{buildroot}/usr/libexec/bitwarden-rs/data
 
 %files
 %license LICENSE.txt
@@ -44,3 +45,5 @@ install -Dpm 644 .env.template %{buildroot}/etc/bitwarden-rs.env
 groupadd --system bitwarden-rs || true
 useradd -Mrg bitwarden-rs -d /usr/libexec/bitwarden-rs bitwarden-rs || true
 
+%post
+chown -R bitwarden-rs /usr/libexec/bitwarden-rs/data
