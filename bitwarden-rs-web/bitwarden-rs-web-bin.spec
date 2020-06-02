@@ -1,6 +1,6 @@
 Name: bitwarden-rs-web-bin
-Version: 2.13.2b
-Release: 3%{?dist}
+Version: 2.14.0
+Release: 1%{?dist}
 Summary: Bitwarden web vault with patches for bitwarden-rs (upstream build)
 License: GPL-3.0-only
 URL: https://github.com/dani-garcia/bw_web_builds
@@ -23,7 +23,7 @@ mv web-vault %{buildroot}/usr/share/bitwarden-rs/web-vault
 %files
 /usr/share/bitwarden-rs/web-vault
 
-%pre	
+%pre
 getent group bitwarden-rs > /dev/null || groupadd --system bitwarden-rs
 getent passwd bitwarden-rs > /dev/null || useradd -Mrg bitwarden-rs -d /usr/share/bitwarden-rs bitwarden-rs
 
