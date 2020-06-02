@@ -1,8 +1,8 @@
 %define debug_package %{nil}
 
 Name: bitwarden-rs-sqlite
-Version: 1.14.2
-Release: 4%{?dist}
+Version: 1.15.0
+Release: 1%{?dist}
 Summary: Unofficial Bitwarden compatible server written in Rust (SQLite backend)
 License: GPL-3.0-only
 URL: https://github.com/dani-garcia/bitwarden_rs
