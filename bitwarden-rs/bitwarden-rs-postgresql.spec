@@ -2,7 +2,7 @@
 
 Name: bitwarden-rs-postgresql
 Version: 1.15.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Unofficial Bitwarden compatible server written in Rust (PostgreSQL backend)
 License: GPL-3.0-only
 URL: https://github.com/dani-garcia/bitwarden_rs
@@ -34,12 +34,15 @@ cargo build --features postgresql --release
 %install
 install -Dpm 755 target/release/bitwarden_rs %{buildroot}%{_bindir}/bitwarden-rs
 install -Dpm 644 %{SOURCE1} %{buildroot}%{_unitdir}/bitwarden-rs.service
+cp %{buildroot}%{_unitdir}/bitwarden-rs.service %{buildroot}%{_unitdir}/bitwarden-rs-waitforpostgresql.service
+sed -i "s/After=network.target/After=network.target postgresql.service/" %{buildroot}%{_unitdir}/bitwarden-rs-waitforpostgresql.service
 install -Dpm 644 .env.template %{buildroot}%{_sysconfdir}/bitwarden-rs/bitwarden-rs.env
 
 %files
 %license LICENSE.txt
 %{_bindir}/bitwarden-rs
 %{_unitdir}/bitwarden-rs.service
+%{_unitdir}/bitwarden-rs-waitforpostgresql.service
 %config(noreplace) %{_sysconfdir}/bitwarden-rs/bitwarden-rs.env
 
 %pre	
