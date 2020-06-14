@@ -42,7 +42,7 @@ install -Dpm 644 .env.template %{buildroot}%{_sysconfdir}/bitwarden-rs/bitwarden
 %{_unitdir}/bitwarden-rs.service
 %config(noreplace) %{_sysconfdir}/bitwarden-rs/bitwarden-rs.env
 
-%pre	
+%pre
 getent group bitwarden-rs > /dev/null || groupadd --system bitwarden-rs
 getent passwd bitwarden-rs > /dev/null || useradd -Mrg bitwarden-rs -d /usr/share/bitwarden-rs bitwarden-rs
 
