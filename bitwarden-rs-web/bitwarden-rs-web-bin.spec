@@ -1,5 +1,5 @@
 Name: bitwarden-rs-web-bin
-Version: 2.14.0
+Version: 2.15.1
 Release: 1%{?dist}
 Summary: Bitwarden web vault with patches for bitwarden-rs (upstream build)
 License: GPL-3.0-only
