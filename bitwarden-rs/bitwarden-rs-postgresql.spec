@@ -1,8 +1,8 @@
 %define debug_package %{nil}
 
 Name: bitwarden-rs-postgresql
-Version: 1.15.1
-Release: 2%{?dist}
+Version: 1.16.0
+Release: 1%{?dist}
 Summary: Unofficial Bitwarden compatible server written in Rust (PostgreSQL backend)
 License: GPL-3.0-only
 URL: https://github.com/dani-garcia/bitwarden_rs
