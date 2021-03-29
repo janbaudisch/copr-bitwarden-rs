@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name: bitwarden-rs-mysql
-Version: 1.19.0
+Version: 1.20.0
 Release: 1%{?dist}
 Summary: Unofficial Bitwarden compatible server written in Rust (MySQL backend)
 License: GPL-3.0-only
